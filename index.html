@@ -666,14 +666,17 @@
       }
     }
 
-    if (isGAS) {
-      google.script.run.withSuccessHandler(applyTemplates).getTemplates();
-    } else if (API_URL && !API_URL.includes("MASUKKAN_URL")) {
-      fetch(`${API_URL}?action=getTemplates`)
-        .then(res => res.json())
-        .then(res => applyTemplates(res.templates))
-        .catch(err => console.error("Error template:", err));
-    }
+    const logoImg = document.getElementById("app-logo");
+    logoImg.src = "logo.png";
+    logoImg.onload = () => {
+      logoImg.style.display = "block";
+      document.getElementById("logo-placeholder").style.display = "none";
+    };
+
+    imgDepan.src = "template_depan.png";
+    imgDepan.onload = () => renderCanvas();
+
+    imgBelakang.src = "template_belakang.png";
 
     function switchSide(side) {
       currentSide = side;
